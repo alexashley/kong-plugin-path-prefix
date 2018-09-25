@@ -29,8 +29,7 @@ describe('access', function()
         assert_nil(err)
 
         local err, _ kong.create_plugin("path-prefix", {
-        ["path_prefix"] = "/service-with-plugin-route",
-        ["service_path"] = "/request"
+        ["path_prefix"] = "/service-with-plugin-route"
     }, service_with_plugin.id, nil)
 
         assert_nil(err)
