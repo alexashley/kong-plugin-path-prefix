@@ -4,8 +4,7 @@ function plugin:new()
     plugin.super.new(self, "path-prefix")
 end
 
-local function escape_hyphen()
-    local conf = kong.ctx.plugin.conf
+local function escape_hyphen(conf)
     local path_prefix = conf.path_prefix
     local should_escape = conf.escape
 
@@ -16,8 +15,7 @@ local function escape_hyphen()
     return path_prefix
 end
 
-local function get_service_for_plugin()
-    local conf = kong.ctx.plugin.conf
+local function get_service_for_plugin(conf)
     local service
     local err
 
@@ -41,9 +39,8 @@ end
 
 function plugin:access(plugin_conf)
     plugin.super.access(self)
-    kong.ctx.plugin.conf = plugin_conf
 
-    local service, err = get_service_for_plugin()
+    local service, err = get_service_for_plugin(plugin_conf)
 
     if err then
         kong.log.err("Unable to determine service for plugin " .. err)
@@ -57,7 +54,7 @@ function plugin:access(plugin_conf)
     local service_path = service.path or ""
 
     local full_path = kong.request.get_path()
-    local replace_match = escape_hyphen()
+    local replace_match = escape_hyphen(plugin_conf)
     local path_without_prefix = full_path:gsub(replace_match, "", 1)
 
     if path_without_prefix == "" and service_path == "" then
