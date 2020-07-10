@@ -5,6 +5,7 @@ services:
     image: postgres:9.5
     environment:
     - POSTGRES_USER=kong
+    - POSTGRES_PASSWORD=kongdb
     - POSTGRES_DB=kong
   kong:
     image: kong

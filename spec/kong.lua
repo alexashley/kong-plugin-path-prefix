@@ -11,8 +11,7 @@ local function post(path, payload)
     request.headers:upsert("Content-Type", "application/json")
     request.headers:upsert(":method", "POST")
     request:set_body(lunajson.encode(payload))
-    local headers, stream = request:go()
-
+    local headers, stream, err = request:go()
     local body = stream:get_body_as_string()
     if headers:get(":status") ~= "201" then
         return "Kong error: " .. body

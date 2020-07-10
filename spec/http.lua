@@ -8,7 +8,11 @@ function _Module.get(url)
     request.headers:upsert("Accept", "application/json")
     request.headers:upsert(":method", "GET")
 
-    local headers, stream = request:go()
+    local headers, stream, err = request:go()
+    print('uri')
+    print(url)
+    print('err')
+    print(err)
 
     local body = stream:get_body_as_string()
     if headers:get(":status") ~= "200" then
