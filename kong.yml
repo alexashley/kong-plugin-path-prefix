@@ -3,18 +3,37 @@ _format_version: "2.1"
 _transform: true
 
 services:
-  - name: mockbin
+  - name: readme-example
     url: https://mockbin.org/request
     routes:
       - name: index
         paths: [ '/' ]
+        strip_path: false
+        protocols: ['http']
       - name: version
         paths: [ '/version' ]
+        strip_path: false
+        protocols: ['http']
       - name: healthz
         paths: [ '/healthz' ]
-
-plugins:
-  - name: path-prefix
-    service: mockbin
-    config:
-      path_prefix: /mock
+        strip_path: false
+        protocols: ['http']
+    plugins:
+      - name: path-prefix
+        config:
+          path_prefix: /mock
+  - name: test
+    url: https://mockbin.org/request
+    routes:
+      - name: nested
+        paths: [ '/service-with-plugin-route/foobar' ]
+        strip_path: false
+        protocols: ['http']
+      - name: base
+        paths: [ '/service-with-plugin-route' ]
+        strip_path: false
+        protocols: ['http']
+    plugins:
+      - name: path-prefix
+        config:
+          path_prefix: '/service-with-plugin-route'
