@@ -1,0 +1,20 @@
+_format_version: "2.1"
+
+_transform: true
+
+services:
+  - name: mockbin
+    url: https://mockbin.org/request
+    routes:
+      - name: index
+        paths: [ '/' ]
+      - name: version
+        paths: [ '/version' ]
+      - name: healthz
+        paths: [ '/healthz' ]
+
+plugins:
+  - name: path-prefix
+    service: mockbin
+    config:
+      path_prefix: /mock
