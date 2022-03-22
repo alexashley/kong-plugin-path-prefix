@@ -15,6 +15,14 @@ local function escape_hyphen(conf)
     return path_prefix
 end
 
+local function add_header(conf, path)
+    local forwarded_header = conf.forwarded_header
+    if forwarded_header then
+        kong.log("Adding Header: X-Forwarded-Prefix ", conf.path_prefix)
+        ngx.var.upstream_x_forwarded_prefix = conf.path_prefix
+    end
+end
+
 function plugin:access(plugin_conf)
     plugin.super.access(self)
 
@@ -33,6 +41,7 @@ function plugin:access(plugin_conf)
         kong.log("Prefixing request with service path ", service_path)
         new_path = service_path .. new_path
     end
+    add_header(plugin_conf, path_without_prefix)
     kong.service.request.set_path(new_path)
 end
 

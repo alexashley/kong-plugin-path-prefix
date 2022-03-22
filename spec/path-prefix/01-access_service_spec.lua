@@ -26,6 +26,14 @@ describe('access', function()
             assert.equal(body.url, expected_url)
         end)
 
+        it("should add X-Forwarded-Prefix Header", function()
+            -- header x-forwarded-prefix is expected as the original path 
+            local body = http.get(kong_proxy_url .. "/service-with-plugin-route")
+
+            local expected_header = '/service-with-plugin-route'
+            assert.equal(body.headers["x-forwarded-prefix"], expected_header)
+        end)
+
         it("should only make one path replacement", function()
             local body = http.get(kong_proxy_url .. "/service-with-plugin-route/service-with-plugin-route")
 

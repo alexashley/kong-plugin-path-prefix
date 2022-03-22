@@ -16,6 +16,7 @@ Can be installed on either a service or individual routes.
 |----------------|----------------------------------------------------------------------|---------|
 | `path_prefix`  | The prefix shared by all routes associated with the service.         | N/A     |
 | `escape`       | Whether any hyphens in the path prefix should be escaped             | `true`  |
+| `forwarded_header`       | Add 'X-Forwarded-Prefix' with 'path_prefix' value             | `false`  |
 
 ### Versions
 
