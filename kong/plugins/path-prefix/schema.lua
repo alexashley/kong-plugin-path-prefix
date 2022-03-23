@@ -15,6 +15,7 @@ return {
                 fields = {
                     { path_prefix = { type = "string", required = true } },
                     { escape = { type = "boolean", default = true } },
+                    { forwarded_header = { type = "boolean", default = false } },
                 },
             },
         },

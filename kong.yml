@@ -22,6 +22,7 @@ services:
       - name: path-prefix
         config:
           path_prefix: /mock
+          forwarded_header: true
   - name: test
     url: https://mockbin.org/request
     routes:
@@ -37,3 +38,4 @@ services:
       - name: path-prefix
         config:
           path_prefix: '/service-with-plugin-route'
+          forwarded_header: true
