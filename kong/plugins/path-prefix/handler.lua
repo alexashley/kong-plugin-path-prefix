@@ -23,8 +23,6 @@ local function add_header(conf, path)
 end
 
 function plugin:access(plugin_conf)
-    plugin.super.access(self)
-
     local service_path = ngx.ctx.service.path or ""
     local full_path = kong.request.get_path()
     local replace_match = escape_hyphen(plugin_conf)
