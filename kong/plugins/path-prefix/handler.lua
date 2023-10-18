@@ -1,8 +1,7 @@
-local plugin = require("kong.plugins.base_plugin"):extend()
-
-function plugin:new()
-    plugin.super.new(self, "path-prefix")
-end
+local plugin = {
+  PRIORITY = 800,
+  VERSION = "1.0.0"
+}
 
 local function escape_hyphen(conf)
     local path_prefix = conf.path_prefix
@@ -44,7 +43,5 @@ function plugin:access(plugin_conf)
     add_header(plugin_conf, path_without_prefix)
     kong.service.request.set_path(new_path)
 end
-
-plugin.PRIORITY = 800
 
 return plugin
